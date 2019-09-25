@@ -1,14 +1,19 @@
-import RPi.GPIO as GPIOimport time
+import RPi.GPIO as GPIO
+import time
 
+ledPin = 11
 buttonPin = 16
 GPIO.setmode(GPIO.BOARD)
+
+GPIO.setup(ledPin, GPIO.OUT)
+GPIO.output(ledPin, GPIO.LOW)
 
 GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 while True:
-    input_state = GPIO.input(buttonPin)
-    if input_state == False:
-        print('Button Pressed')
-        time.sleep(0.3)
-
+    GPIO.wait_for_edge(buttonPin, GPIO.FALLING)
+    print('Button Pressed')
+    GPIO.outpput(ledPin, GPIO.HIGH)
+    GPIO.wait_for_edge(buttonPin, GPIO.RISING)
+    GPIO.output(ledPin, GPIO.LOW)
 GPIO.cleanup();
