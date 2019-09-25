@@ -1,6 +1,8 @@
 import RPi.GPIO as GPIO
 import time
 
+GPIO.setwarnings(False)
+
 ledPin = 11
 buttonPin = 16
 GPIO.setmode(GPIO.BOARD)
